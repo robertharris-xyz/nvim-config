@@ -9,7 +9,7 @@ The `<leader>` key as of writing is `<space>`.
 **Linux:**
 
 ```bash
-git clone  ~/.config/nvim
+git clone https://github.com/robertharris-xyz/nvim-config.git ~/.config/nvim
 ```
 
 ## Required Packages
