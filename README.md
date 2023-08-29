@@ -15,6 +15,7 @@ git clone https://github.com/robertharris-xyz/nvim-config.git ~/.config/nvim
 ## Required Packages
 
 ```bash
+neovim >= 0.8.3
 ripgrep
 fd
 ```
