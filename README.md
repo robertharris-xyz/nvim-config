@@ -18,6 +18,7 @@ git clone https://github.com/robertharris-xyz/nvim-config.git ~/.config/nvim
 neovim >= 0.8.3
 ripgrep
 fd
+npm
 ```
 
 ## Custom Commands
