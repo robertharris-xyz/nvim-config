@@ -215,7 +215,17 @@ require('lazy').setup({
   -- Easy directory tree viewer:
   {
     'preservim/nerdtree'
+  },
+
+  -- Markdown previewer:
+  {
+    'iamcco/markdown-preview.nvim',
+    ft = "markdown",
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
   }
+
 }, {})
 
 -- Colour scheme setup
@@ -334,6 +344,17 @@ vim.cmd[[autocmd StdinReadPre * let s:std_in=1]]
 vim.cmd[[autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif]]
 -- Open the existing nerdtree on each new tab:
 vim.cmd[[autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif]]
+
+-- [[ Configure Markdown Preview ]]
+-- Set to '1' to open markdown preview automatically:
+vim.cmd[[let g:mkdp_auto_start = 0]]
+
+-- Set to '1' to only update markdown preview when saving or exiting 
+-- insert mode. '0' updates markdown preview live:
+vim.cmd[[let g:mkdp_refresh_slow = 0]]
+
+-- Set the markdown preview theme:
+vim.cmd[[let g:mkdp_theme = 'dark']]
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`

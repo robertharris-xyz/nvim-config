@@ -23,4 +23,10 @@ fd
 ## Custom Commands
 
 - Automatically format text in a file: `:Format`
+- View markdown preview: `:MarkdownPreview`. 
+
+## Known Issues
+
+- `iamcco/markdown-preview.nvim` plugin is a bit of a pain to get working. As of writing, the solution to the problem was mentioned here: [https://github.com/iamcco/markdown-preview.nvim/issues/558#issuecomment-1677712446](https://github.com/iamcco/markdown-preview.nvim/issues/558#issuecomment-1677712446)
+    - "I discovered the error, I needed to manually run `npm install` in the plugin folder `cd ~/.local/share/nvim/lazy/markdown-preview.nvim`".
 
