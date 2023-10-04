@@ -462,8 +462,8 @@ pcall(require('telescope').load_extension, 'fzf')
 -- CONFIGURE NERDTREE
 
 -- Start nerdtree. If a file is specified, move the cursor to its window:
-vim.cmd[[autocmd StdinReadPre * let s:std_in=1]]
-vim.cmd[[autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif]]
+-- vim.cmd[[autocmd StdinReadPre * let s:std_in=1]]
+-- vim.cmd[[autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif]]
 -- Open the existing nerdtree on each new tab:
 vim.cmd[[autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif]]
 
