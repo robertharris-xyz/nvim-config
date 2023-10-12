@@ -40,12 +40,29 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
+      -- Useful status updates for LSP. Shows progress of LSP in bottom right.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       {
         'j-hui/fidget.nvim',
         tag = 'legacy',
-        opts = {}
+        opts = {
+          text = {
+            -- Loading symbol to use:
+            spinner = "moon",
+            -- Other favourites below...
+            -- spinner = "dots",
+            -- spinner = "clock",
+            -- spinner = "earth",
+            
+            -- Symbol to use when LSP is done:
+            done = "🌕",
+            -- Other favourites below...
+            -- done = "✔",
+          },
+          window = {
+            blend = 0 -- Make LSP progress background transparent
+          }
+        }
       },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -163,6 +180,10 @@ require('lazy').setup({
   {
     'preservim/nerdtree'
   },
+  -- Nerdtree icons:
+  {
+    "ryanoasis/vim-devicons"
+  },
 
   -- Markdown previewer:
   {
@@ -171,8 +192,28 @@ require('lazy').setup({
     build = function()
       vim.fn["mkdp#util#install"]()
     end,
-  }
+  },
 
+  -- Better tabs:
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim',     -- For git status
+      'nvim-tree/nvim-web-devicons', -- For file icons
+    },
+    init = function() vim.g.barbar_auto_setup = false end,
+    opts = {
+      animation = true,
+      clickable = true,
+      icons = {
+        gitsigns = {
+          added = { enabled = true, icon = '+' },
+          changed = { enabled = true, icon = '~' },
+          deleted = { enabled = true, icon = '-' },
+        }
+      }
+    },
+  },
 }, {})
 
 -------------------------------------------------------------------------------

@@ -22,6 +22,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Replace all with sed:
+vim.keymap.set('n', 'S', ':%s//g<Left><Left>', {})
+
 -------------------------------------------------------------------------------
 -- NERDTREE KEYMAPS
 
@@ -48,6 +51,30 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-------------------------------------------------------------------------------
+-- TAB KEYMAPS
+
+-- Move back and forth between tabs:
+vim.keymap.set('n', '<A-Q>', '<Cmd>BufferPrevious<CR>', {})
+vim.keymap.set('n', '<A-q>', '<Cmd>BufferNext<CR>', {})
+
+-- Go to specific tab:
+vim.keymap.set('n', 'A-1', '<Cmd>BufferGoto 1<CR>', {})
+vim.keymap.set('n', 'A-2', '<Cmd>BufferGoto 2<CR>', {})
+vim.keymap.set('n', 'A-3', '<Cmd>BufferGoto 3<CR>', {})
+vim.keymap.set('n', 'A-4', '<Cmd>BufferGoto 4<CR>', {})
+vim.keymap.set('n', 'A-5', '<Cmd>BufferGoto 5<CR>', {})
+vim.keymap.set('n', 'A-6', '<Cmd>BufferGoto 6<CR>', {})
+vim.keymap.set('n', 'A-7', '<Cmd>BufferGoto 7<CR>', {})
+vim.keymap.set('n', 'A-8', '<Cmd>BufferGoto 8<CR>', {})
+vim.keymap.set('n', 'A-9', '<Cmd>BufferGoto 9<CR>', {})
+
+-- Pin a tab:
+vim.keymap.set('n', '<A-p>', '<Cmd>BufferPin<CR>', {})
+
+-- Close a tab:
+vim.keymap.set('n', '<A-w>', '<Cmd>BufferClose<CR>', {})
 
 -------------------------------------------------------------------------------
 -- DIAGNOSTIC KEYMAPS
