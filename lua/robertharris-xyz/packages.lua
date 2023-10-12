@@ -42,7 +42,8 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',
+      {
+        'j-hui/fidget.nvim',
         tag = 'legacy',
         opts = {}
       },
@@ -106,9 +107,9 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
+        icons_enabled = true,
+        theme = 'seoul256',
+        component_separators = '·',
         section_separators = '',
       },
     },
@@ -180,14 +181,14 @@ require('lazy').setup({
 local dracula = require("dracula")
 dracula.setup({
   colors = {
-    bg = "#282A36",
+    bg = "#272822",
     fg = "#F8F8F2",
-    selection = "#44475A",
-    comment = "#6272A4",
+    selection = "#4D4D41",
+    comment = "#959583",
     red = "#FF5555",
     orange = "#FFB86C",
     yellow = "#F1FA8C",
-    green = "#50fa7b",
+    green = "#50FA7B",
     purple = "#BD93F9",
     cyan = "#8BE9FD",
     pink = "#FF79C6",
@@ -198,22 +199,19 @@ dracula.setup({
     bright_magenta = "#FF92DF",
     bright_cyan = "#A4FFFF",
     bright_white = "#FFFFFF",
-    menu = "#21222C",
-    visual = "#3E4452",
-    gutter_fg = "#4B5263",
-    nontext = "#3B4048",
+    menu = "#272822",
+    visual = "#4D4D41",
+    gutter_fg = "#2C303A",
+    nontext = "#606052",
     white = "#ABB2BF",
-    black = "#191A21",
+    black = "#B6B6AF",
   },
   show_end_of_buffer = false,
-  --TODO: In the future make this transparent. Not doing for now since
-  -- it looks bad without changing the styling of plugins as well. I'll 
-  -- need to work out how to do that...
-  transparent_bg = false,
+  transparent_bg = true,
   italic_comment = true,
   overrides = {},
 })
-vim.cmd[[colorscheme dracula]]
+vim.cmd [[colorscheme dracula]]
 
 -------------------------------------------------------------------------------
 -- CONFIGURE TREESITTER
@@ -431,14 +429,14 @@ cmp.setup {
 -- MARKDOWN PREVIEW
 
 -- Set to '1' to open markdown preview automatically:
-vim.cmd[[let g:mkdp_auto_start = 0]]
+vim.cmd [[let g:mkdp_auto_start = 0]]
 
--- Set to '1' to only update markdown preview when saving or exiting 
+-- Set to '1' to only update markdown preview when saving or exiting
 -- insert mode. '0' updates markdown preview live:
-vim.cmd[[let g:mkdp_refresh_slow = 0]]
+vim.cmd [[let g:mkdp_refresh_slow = 0]]
 
 -- Set the markdown preview theme:
-vim.cmd[[let g:mkdp_theme = 'dark']]
+vim.cmd [[let g:mkdp_theme = 'dark']]
 
 -------------------------------------------------------------------------------
 -- CONFIGURE TELESCOPE
@@ -465,5 +463,4 @@ pcall(require('telescope').load_extension, 'fzf')
 -- vim.cmd[[autocmd StdinReadPre * let s:std_in=1]]
 -- vim.cmd[[autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif]]
 -- Open the existing nerdtree on each new tab:
-vim.cmd[[autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif]]
-
+vim.cmd [[autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif]]

@@ -20,6 +20,9 @@ vim.opt.signcolumn = "number"
 -- Make relative line numbers default
 -- vim.wo.relativenumber = true
 
+-- Character width of line number gutter:
+vim.wo.numberwidth = 5
+
 -- Enable mouse mode:
 vim.o.mouse = 'a'
 
@@ -27,7 +30,6 @@ vim.o.mouse = 'a'
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
-
 
 -- Enable break indent
 vim.o.breakindent = true
