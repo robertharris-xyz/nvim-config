@@ -55,9 +55,14 @@ require('lazy').setup({
             -- spinner = "earth",
             
             -- Symbol to use when LSP is done:
-            done = "🌕",
+            done = "🎉",
             -- Other favourites below...
+            --done = "🌕",
             -- done = "✔",
+            -- done = "😎",
+            -- done = "🚀",
+            -- done = "🌝",
+            -- done = "✨",
           },
           window = {
             blend = 0 -- Make LSP progress background transparent
