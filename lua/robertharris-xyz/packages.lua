@@ -198,6 +198,10 @@ require('lazy').setup({
       vim.fn["mkdp#util#install"]()
     end,
   },
+  -- Markdown Table of Contents generator:
+  {
+    "mzlogin/vim-markdown-toc",
+  },
 
   -- Better tabs:
   {

@@ -24,7 +24,12 @@ npm
 ## Custom Commands
 
 - Automatically format text in a file: `:Format`
-- View markdown preview: `:MarkdownPreview`. 
+- View Markdown preview: `:MarkdownPreview`. 
+- Generate Markdown Table of Contents:
+    - Github Flavoured Markdown: `:GenTocGFM`.
+    - Gitlab Flavoured Markdown: `:GenTocGitlab`.
+- Update the Markdown Table of Contents: `:UpdateToc`.
+- Remove the Markdown Table of Contents: `:RemoveToc`.
 
 ## Known Issues
 

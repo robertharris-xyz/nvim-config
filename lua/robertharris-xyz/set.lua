@@ -51,6 +51,11 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+-- What character to use for bullet points in a Markdown table of contents:
+vim.g.vmt_list_item_char = "-"
+-- Do not include the headings before where the table of contents is 
+-- inserted in a Markdown file:
+vim.g.vmt_include_headings_before = 0
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
