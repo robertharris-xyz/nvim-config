@@ -21,6 +21,10 @@ fd
 npm
 ```
 
+A valid custom font also needs to be installed from [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) to get icons to work.
+
+- Currently using: [BlexMono Propo Text](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/IBMPlexMono).
+
 ## Custom Commands
 
 - Automatically format text in a file: `:Format`
