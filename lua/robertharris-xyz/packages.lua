@@ -223,6 +223,13 @@ require('lazy').setup({
       }
     },
   },
+
+  -- Better diff between git merge conflicts:
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    -- config = true,
+  },
 }, {})
 
 -------------------------------------------------------------------------------
@@ -262,6 +269,25 @@ dracula.setup({
   overrides = {},
 })
 vim.cmd [[colorscheme dracula]]
+
+-------------------------------------------------------------------------------
+-- CONFIGURE GIT-CONFLICT
+
+-- Set the colours for git conflict:
+vim.api.nvim_set_hl(0, "GitConflictCurrent", { background = "#405d7e", bold = true, default = true})
+vim.api.nvim_set_hl(0, "GitConflictIncoming", { background = "#994d00", bold = true, default = true})
+
+local git_conflict = require("git-conflict")
+git_conflict.setup({
+  default_mappings=true,
+  disable_diagnostics = false,
+  list_opener = "copen",
+  debug = false,
+  highlights = {
+    incoming = "GitConflictIncoming",
+    current = "GitConflictCurrent",
+  }
+})
 
 -------------------------------------------------------------------------------
 -- CONFIGURE TREESITTER
