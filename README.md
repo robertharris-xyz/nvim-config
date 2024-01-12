@@ -25,6 +25,37 @@ A valid custom font also needs to be installed from [nerd-fonts](https://github.
 
 - Currently using: [BlexMono Propo Text](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/IBMPlexMono).
 
+### Windows-specific Setup
+
+As one might expect, Neovim is a bit more annoying to set up on Windows. Here's a list of some of the stuff that needs to be done:
+
+1. Extract the Github release zip file of Neovim to a location like: `C:\Users\<USER>\nvim`
+
+2. Git clone this configuration to the appropriate directory:
+
+```sh
+git clone https://github.com/robertharris-xyz/nvim-config.git C:\Users\<USER>\AppData\Local\nvim
+```
+
+3. Add `C:\Users\<USER>\nvim` to the user's `%PATH%` environment variable. This is typically done through Windows Control Panel.
+
+4. Get [the better Windows terminal](https://github.com/microsoft/terminal).
+    - **Optional:** Change the opacity of the terminal to 95% and the background colour to `#272822`. This makes the theme look better. Or change `transparent_bg` to `false` in `lua/robertharris-xyz/packages.lua`.
+
+5. Install the required packages through `winget` (if it is hopefully available, otherwise you'll need to do this manually:
+
+```sh
+winget install BurntSushi.ripgrep.MSVC
+winget install sharpdp.fd
+```
+
+6. [Download npm](https://nodejs.org/en/download/)
+
+7. Get a valid C Compiler. You can get the MinGW installation manager (basically gcc), but Clang is apparently better for Windows? This needs to be tried out at some point...
+    - If choosing MinGW route, download the installation manager [here](https://sourceforge.net/projects/mingw/files/latest/download).
+    - When done with the setup, in the installation manager choose the `mingw32-base` and `mingw32-gcc-g++` options.
+    - To install the chosen options, go to "Installation -> Apply Changes".
+
 ## Custom Commands
 
 - Automatically format text in a file: `:Format`
