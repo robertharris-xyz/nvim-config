@@ -75,6 +75,9 @@ require('lazy').setup({
     },
   },
 
+  -- Godot support:
+  'habamax/vim-godot',
+
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -500,6 +503,10 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- Godot LSP support
+require'lspconfig'.gdscript.setup{}
+require'lspconfig'.gdshader_lsp.setup{}
 
 -------------------------------------------------------------------------------
 -- MARKDOWN PREVIEW

@@ -60,3 +60,5 @@ vim.g.vmt_include_headings_before = 0
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- Enable spellcheck by default:
+vim.o.spell = true

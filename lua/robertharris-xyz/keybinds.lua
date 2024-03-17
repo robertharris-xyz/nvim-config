@@ -84,3 +84,10 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-------------------------------------------------------------------------------
+-- GODOT SPECIFIC
+
+vim.keymap.set('n', '<leader>gdl', ':GodotRunLast<CR>', { desc = 'Run last Godot command' })
+vim.keymap.set('n', '<leader>gdr', ':GodotRun ', { desc = 'Run specified Godot scene' })
+vim.keymap.set('n', '<leader>gdc', ':GodotRunCurrent<CR>', { desc = 'Run the current Godot scene' })
+vim.keymap.set('n', '<leader>gdf', ':GodotRunFZF<CR>', { desc = 'Run fuzzy finder to choose a Godot scene' })

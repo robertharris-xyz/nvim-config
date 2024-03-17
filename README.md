@@ -1,6 +1,6 @@
 # Neovim Configuration
 
-My neovim configuration. Based off of [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim). 
+My Neovim configuration. Based off of [`kickstart.nvim`](https://github.com/nvim-lua/kickstart.nvim). 
 
 The `<leader>` key as of writing is `<space>`.
 
@@ -66,10 +66,26 @@ winget install sharpdp.fd
 - Update the Markdown Table of Contents: `:UpdateToc`.
 - Remove the Markdown Table of Contents: `:RemoveToc`.
 
+## Godot Support
+
+Godot support is inside this configuration, however a few things have to be done manually in order to get it working. This is based off the information in [the `vim-godot` Github repository]:
+
+1. In Godot, open Menu `Editor/Editor Settings/General/External`.
+    1. Tick `Use external editor`.
+    2. In `Exec Path`, add the Neovim executable path.
+    3. In `Exec Flags`, add the following: `--server ./godothost --remote-send "<C-\><C-N>:n {file}<CR>{line}G{col}|"`
+2. Add the `nvimgd` script in this repository to a location in `$PATH`:
+    - For example: `/usr/local/bin/nvimgd`
+
+To use Neovim with Godot, run the `nvimgd` script from within a Godot project (where the `project.godot` file is located). You should ensure that the Godot editor is running *before* running Neovim.
+
+With this enabled, clicking scripts in Godot will open them in a new buffer in Neovim.
+
 ## Known Issues
 
 - `iamcco/markdown-preview.nvim` plugin is a bit of a pain to get working. As of writing, the solution to the problem was mentioned here: [https://github.com/iamcco/markdown-preview.nvim/issues/558#issuecomment-1677712446](https://github.com/iamcco/markdown-preview.nvim/issues/558#issuecomment-1677712446)
     - "I discovered the error, I needed to manually run `npm install` in the plugin folder `cd ~/.local/share/nvim/lazy/markdown-preview.nvim`".
 - An error might be received with treesitter's ability to parse the bash scripting language.
-    - Solution is to execute: `:echo nvim_get_runtime_file('parser', v:true`. If the output received has two parsers (e.g. one of them is the default nvim parser `/usr/local/lib/nvim/parser`), rename the unneeded one, and the error should go away on subsequent boots of neovim.
+    - Solution is to execute: `:echo nvim_get_runtime_file('parser', v:true`. If the output received has two parsers (e.g. one of them is the default nvim parser `/usr/local/lib/nvim/parser`), rename the unneeded one, and the error should go away on subsequent boots of Neovim.
+- For some reason, running `:GodotRunFZF` results in an error claiming that `fzf` is not installed, even when it is. I'm not sure what causes this issue...
 
