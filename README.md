@@ -68,18 +68,15 @@ winget install sharpdp.fd
 
 ## Godot Support
 
-Godot support is inside this configuration, however a few things have to be done manually in order to get it working. This is based off the information in [the `vim-godot` Github repository]:
+Godot support is inside this configuration, however a few things have to be done manually in order to get it working. This is based off the information in [the `vim-godot` Github repository](https://github.com/habamax/vim-godot):
 
-1. In Godot, open Menu `Editor/Editor Settings/General/External`.
-    1. Tick `Use external editor`.
-    2. In `Exec Path`, add the Neovim executable path.
-    3. In `Exec Flags`, add the following: `--server ./godothost --remote-send "<C-\><C-N>:n {file}<CR>{line}G{col}|"`
-2. Add the `nvimgd` script in this repository to a location in `$PATH`:
-    - For example: `/usr/local/bin/nvimgd`
-
-To use Neovim with Godot, run the `nvimgd` script from within a Godot project (where the `project.godot` file is located). You should ensure that the Godot editor is running *before* running Neovim.
-
-With this enabled, clicking scripts in Godot will open them in a new buffer in Neovim.
+- In Godot, open Menu `Editor/Editor Settings/General/External`:
+    - Tick `Use external editor`.
+    - In `Exec Path`, add the Neovim executable path.
+    - In `Exec Flags`, add the following: `--server ./godothost --remote-send "<C-\><C-N>:n {file}<CR>{line}G{col}|"`
+    - These configuration changes should only need to be done once.
+- Always ensure that Godot is running *before* running Neovim, otherwise the connection will not work!
+- The Neovim configuration has been written in a way which assumes that if the current directory `nvim` is executed in contains a Godot project file (`project.godot`), then Neovim will be started with the correct flags to connect to the Godot executable. So to use Neovim with Godot, it should always be run in the directory where `project.godot` is.
 
 ## Known Issues
 

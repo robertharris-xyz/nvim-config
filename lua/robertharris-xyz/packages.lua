@@ -76,7 +76,10 @@ require('lazy').setup({
   },
 
   -- Godot support:
-  'habamax/vim-godot',
+  {
+    'habamax/vim-godot',
+    event = 'VimEnter'
+  },
 
   {
     -- Autocompletion
@@ -233,6 +236,10 @@ require('lazy').setup({
     version = "*",
     -- config = true,
   },
+
+  -- Retrieve for debugger purposes. 
+  -- Currently only used to get Godot debug integration:
+  require "kickstart.plugins.debug",
 }, {})
 
 -------------------------------------------------------------------------------
@@ -298,13 +305,13 @@ git_conflict.setup({
 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'gdscript', 'godot_resource' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
   highlight = { enable = true },
-  indent = { enable = true },
+  indent = { enable = false }, -- False to make sure auto indent is used for Godot package 
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -436,6 +443,16 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- LSP Config for Godot
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
+require'lspconfig'.gdscript.setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
+  filetypes = { "gd", "gdscript", "gdscript3" },
+}
+
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -504,10 +521,15 @@ cmp.setup {
   },
 }
 
--- Godot LSP support
-require'lspconfig'.gdscript.setup{}
-require'lspconfig'.gdshader_lsp.setup{}
-
+-- Looks for project.godot file to see if Neovim is open in a Godot project 
+-- directory. If so, Neovim will start listening on the Godot host address.
+-- This means you don't need to add the server listening arguments to Neovim 
+-- every time we want to open for Godot.
+local gdproject = io.open(vim.fn.getcwd()..'/project.godot', 'r')
+if gdproject then
+    io.close(gdproject)
+    vim.fn.serverstart './godothost'
+end
 -------------------------------------------------------------------------------
 -- MARKDOWN PREVIEW
 

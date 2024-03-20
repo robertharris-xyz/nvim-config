@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Run an instance of Neovim that listens to Godot when it is running.
-# Allows for integration between Neovim and Godot.
-#
-
-/usr/bin/nvim --listen ./godothost
