@@ -18,10 +18,8 @@ return {
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
-    "nvim-neotest/nvim-nio",
-
     -- You can also add your own debuggers here:
-    -- 'leoluz/nvim-dap-go',
+    "nvim-neotest/nvim-nio",
   },
   config = function()
     local dap = require 'dap'
@@ -58,6 +56,28 @@ return {
         project = '${workspaceFolder}',
         launch_scene = true,
       }
+    }
+
+    -- C GDP adapter example:
+    dap.adapters.gdb = {
+      type = "executable",
+      -- command = "gdb",
+      command = "arm-none-eabi-gdb",
+      args = {
+        "-i", "dap",
+        "-ex", "target extended-remote localhost:3333",
+      }
+    }
+    -- Example C GDB configuration for STM32 debugging:
+    dap.configurations.c = {
+      name = "Launch",
+      type = "gdb",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to exe: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopAtBeginningOfMainSubprogram = false,
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!

@@ -39,6 +39,7 @@ require('lazy').setup({
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer',
 
       -- Useful status updates for LSP. Shows progress of LSP in bottom right.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -148,9 +149,9 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
+    main = "ibl",
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
+      indent = { char = '┊' },
     },
   },
 
@@ -210,25 +211,25 @@ require('lazy').setup({
   },
 
   -- Better tabs:
-  {
-    'romgrk/barbar.nvim',
-    dependencies = {
-      'lewis6991/gitsigns.nvim',     -- For git status
-      'nvim-tree/nvim-web-devicons', -- For file icons
-    },
-    init = function() vim.g.barbar_auto_setup = false end,
-    opts = {
-      animation = true,
-      clickable = true,
-      icons = {
-        gitsigns = {
-          added = { enabled = true, icon = '+' },
-          changed = { enabled = true, icon = '~' },
-          deleted = { enabled = true, icon = '-' },
-        }
-      }
-    },
-  },
+  -- {
+  --   'romgrk/barbar.nvim',
+  --   dependencies = {
+  --     'lewis6991/gitsigns.nvim',     -- For git status
+  --     'nvim-tree/nvim-web-devicons', -- For file icons
+  --   },
+  --   init = function() vim.g.barbar_auto_setup = false end,
+  --   opts = {
+  --     animation = true,
+  --     clickable = true,
+  --     icons = {
+  --       gitsigns = {
+  --         added = { enabled = true, icon = '+' },
+  --         changed = { enabled = true, icon = '~' },
+  --         deleted = { enabled = true, icon = '-' },
+  --       }
+  --     }
+  --   },
+  -- },
 
   -- Better diff between git merge conflicts:
   {
@@ -430,7 +431,13 @@ local servers = {
 
   lua_ls = {
     Lua = {
-      workspace = { checkThirdParty = false },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          -- Add additional paths here!
+        }
+      },
       telemetry = { enable = false },
     },
   },
@@ -447,28 +454,44 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local lsp_flags = {
   debounce_text_changes = 150,
 }
-require'lspconfig'.gdscript.setup{
+vim.lsp.config("gdscript", {
   on_attach = on_attach,
   flags = lsp_flags,
   filetypes = { "gd", "gdscript", "gdscript3" },
-}
+})
 
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+-- Ensure the servers and tools above are installed
+--
+-- To check the current status of installed tools and/or manually install
+-- other tools, you can run
+--    :Mason
+--
+-- You can press `g?` for help in this menu.
+--
+-- `mason` had to be setup earlier: to configure its options see the
+-- `dependencies` table for `nvim-lspconfig` above.
+--
+-- You can add other tools here that you want Mason to install
+-- for you, so that they are available from within Neovim.
+local ensure_installed = vim.tbl_keys(servers or {})
+vim.list_extend(ensure_installed, {
+  'stylua', -- Used to format Lua code
+})
+require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end
+require('mason-lspconfig').setup {
+  ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+  automatic_installation = false,
+  handlers = {
+    function(server_name)
+      local server = servers[server_name] or {}
+      -- This handles overriding only values explicitly passed
+      -- by the server configuration above. Useful when disabling
+      -- certain features of an LSP (for example, turning off formatting for ts_ls)
+      server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+      require('lspconfig')[server_name].setup(server)
+    end,
+  },
 }
 
 -------------------------------------------------------------------------------
